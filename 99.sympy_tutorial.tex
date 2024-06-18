@@ -9,7 +9,13 @@
 \ifthenelse{\boolean{TUTORIAL}}{}{
 
 \vspace*{-5mm}
-
+    Computadores podem ser muito úteis para lidar com expressões matemáticas complicadas ou quando sofrendo com cálculos entediantes. Ao longo deste livro, usamos o \texttt{SymPy} para ilustrar vários conceitos de matemática e física.
+    Agora, revisaremos todas as ferramentas de matemática e física disponíveis através da linha de comando do \texttt{SymPy}.
+    Não se preocupe se você não for uma pessoa que entende de computadores;
+    discutiremos apenas conceitos que abordamos no livro,
+    e os comandos de computador que aprenderemos são muito semelhantes às operações matemáticas que você já conhece.
+    Esta seção também serve como uma revisão final do material abordado no livro.
+\begin{comment}
 	Computers can be very useful for dealing with complicated math expressions
 	or when slogging through tedious calculations.	
 	Throughout this book we used \texttt{SymPy} to illustrate several concepts from math and physics.
@@ -19,6 +25,7 @@
 	we'll only discuss concepts we covered in the book,
 	and the computer commands we'll learn are very similar to the math operations you're already familiar with.
 	This section also serves as a final review of the material covered in the book.
+\end{comment}
 } 
 
 
@@ -26,6 +33,20 @@
 \section*{Introduction}
 % \label{sec:sympytut_introduction}
 
+Você pode usar um sistema de álgebra computacional (CAS) para computar expressões matemáticas complicadas, resolver equações, realizar procedimentos de cálculo, e simular sistemas físicos.
+Todos os sistemas de álgebra computacional oferecem essencialmente a mesma funcionalidade, então não importa qual você use:
+existem sistemas gratuitos como \texttt{SymPy}, \texttt{Magma}, ou \texttt{Octave}, e sistemas pagos como \texttt{Maple}, \texttt{MATLAB}, e \texttt{Mathematica}. Este tutorial é uma introdução ao \texttt{SymPy}, que é um sistema de álgebra computacional \textit{simbólico} escrito na linguagem de programação Python. Em um CAS simbólico, números e operações são representadas simbolicamente, então as respostas obtidas são exatas. Por exemplo, o número $\sqrt{2}$ é representado em \texttt{SymPy} como o objeto \texttt{Pow(2,1/2)}, enquanto em sistemas de álgebra computacional \textit{numérica} como \texttt{Octave}, o número $\sqrt{2}$ é representado como a aproximação $1.41421356237310$ (um \texttt{float}). Para a maioria dos propósitos a aproximação é suficiente, mas às vezes aproximações podem levar a problemas: \texttt{float(sqrt(2))*float(sqrt(2)) = 2.00000000000000044} $\neq 2$. Pelo fato de o \texttt{SymPy} utilizar representações exatas, você nunca vai se deparar com estes problemas: \texttt{Pow(2,1/2)*Pow(2,1/2)}$ = 2$.
+
+\ifthenelse{\boolean{TUTORIAL}}{
+Este tutorial é organizado da seguinte forma. Começaremos introduzindo o básico do \texttt{SymPy} e as principais funções utilizadas para manipular expressões e resolver equações. Em seguida, discutiremos as funções do \texttt{SymPy} que implementam operações de cálculo como diferenciação e integração. Também introduziremos as funções usadas para lidar com vetores e números complexos. Depois, veremos como usar vetores e integrais para entender a mecânica Newtoniana. 
+\ifthenelse{\boolean{FORLA}}
+	{Na última seção, introduziremos as funções de álgebra linear disponíveis em \texttt{SymPy}.}
+	{}
+}{}
+
+Este tutorial apresenta várias explicações em trechos de código. Certifique-se de tentar por si mesmo digitando os comandos em \texttt{SymPy}. É sempre importante verificar por si mesmo!
+
+\begin{comment}
 You can use a computer algebra system (CAS) to compute complicated math expressions,
 solve equations,
 perform calculus procedures,
@@ -65,6 +86,7 @@ Later we'll see how to use vectors and integrals to understand Newtonian mechani
 This tutorial presents many explanations as code snippets.
 Be sure to try the code examples on your own by typing the commands into \texttt{SymPy}.
 It's always important to verify for yourself!
+\end{comment}
 %Don't be a passive reader: 
 %type out the commands presented. 
 
@@ -72,6 +94,43 @@ It's always important to verify for yourself!
 %\vspace{1cm}	% to push REPL at top of col2
 
 %=======================================================================  using_sympy
+
+\section*{Usando o \textbf{Sympy}}
+\label{sec:sympytut_using_sympy}
+
+A forma mais fácil de utilizar o \texttt{SymPy}, considerando que você está conectado à internet, é visitando \href{http://live.sympy.org}{\texttt{http://live.sympy.org}}. Você será apresentado a um terminal interativo no qual poderá digitar seus comandos - direto no seu navegador.
+
+Se você quer usar o \texttt{SymPy} no seu computador, você deve primeiro instalar o Python e o pacote \texttt{sympy}. Você pode abrir um terminal e começar a sessão Python usando:
+
+\small
+\begin{verbatimtab}
+you@host> python
+Python X.Y.Z 
+[GCC a.b.c (Build Info)] on platform
+Type "help", "copyright", or "license" for more information.
+>>> 
+\end{verbatimtab}
+\normalsize
+
+\noindent
+O \texttt{>{}>{}>} indica que você está em um console que aceita comandos Python. Escreva o seguinte no console:
+
+\small
+\begin{verbatimtab}
+>>> from sympy import *
+>>> 
+\end{verbatimtab}
+\normalsize
+
+\noindent
+
+O comando \texttt{from sympy import *} importa todas as funções do \texttt{SymPy} no namespace atual. Todas as funções do \texttt{Sympy} agora estão disponíveis para você. Para sair do console Python pressione \texttt{CTRL+D};
+
+Para uma experiência ainda melhor, você pode experimentar o \texttt{JupyterLab}, que é uma interface web para acessar o console Python. Clique \href{https://github.com/jupyterlab/jupyterlab-desktop#jupyterlab-desktop}{aqui} para baixar o JupyterLab Desktop. 
+
+Cada seção \ifthenelse{\boolean{TUTORIAL}}{deste tutorial}{neste apêndice} começa com o comando \texttt{import} para as funções usadas nessa seção. Se você usar o comando \texttt{from sympy import *}\,\, no começo do seu código, você não precisa executar esses comandos \texttt{import} individualmente, mas eu as incluí para que saiba o que é utilizado do \texttt{SymPy} em cada seção.
+
+\begin{comment}
 \section*{Using SymPy}
 % \label{sec:sympytut_using_sympy}
 
@@ -126,7 +185,7 @@ If you use the statement \texttt{from sympy import *}\,\, in the beginning of yo
 you don't need to run these individual import statements,
 but I've included them so you'll know which 
 \texttt{SymPy} vocabulary is covered in each section.
-
+\end{comment}
 
 
 
@@ -139,6 +198,216 @@ but I've included them so you'll know which
 }
 
 %=======================================================================  basics
+
+\lesection{Fundamentos de matemática}
+\label{sec:sympytut_fundamentals_of_mathematics}
+
+Começaremos aprendendo sobre os objetos básicos do \texttt{SymPy} e as operações que podemos realizar neles. Aprenderemos em \texttt{SymPy} algo equivalente a "resolver" (uma equação), "expandir" (uma expressão), ou "fatorar" (um polinômio). 
+
+\subsection{Números}
+\label{basics:numbers}
+
+\small
+\begin{verbatimtab}
+>>> from sympy import  sympify, S,  evalf, N
+\end{verbatimtab}
+\normalsize
+
+\noindent
+Em Python, existem dois tipos de números: \texttt{int}s e \texttt{float}s.
+
+\small
+\begin{verbatimtab}
+>>> 3
+3                             # um int
+>>> 3.0
+3.0                           # um float 
+\end{verbatimtab}
+\normalsize
+
+	\noindent
+	Inteiros em Python são uma representação fiel do conjunto dos números inteiros $\mathbb{Z}=\{\ldots,-2,-1,0,1,2,\ldots\}$.
+	Números de ponto flutuante são representações aproximadas de números reais $\mathbb{R}$.
+	%The name ``floating point'' comes from the fact that \texttt{float}s can represent very small numbers 
+	%and very large numbers (by moving the decimal point).
+	Um número de ponto flutuante tem 16 casas decimais de precisão.
+	% you can think of floats as rational numbers of the form $\frac{m}{10^n}$ where $m<10^{16}$ and $< n <$.
+	
+	%We won't go any further into the implementation details of how numbers are represented;
+	%I just wanted to point out the difference between \texttt{int}s, \texttt{float}s, 
+	%and the set of real numbers $\mathbb{R}$. 
+	%Sandy said: these lines could be more fitting for a teacher's guide, but I think for students it is TMI, since the differences are explained concisely and neatly above.
+
+
+	% Floats are only approximations, but if you want to do calculations with floats you can use the GPU
+ 
+	É necessário cuidado especial quando especificando números racionais se você deseja obter respostas exatas. Se você tentar dividir dois números, o Python vai produzir uma aproximação de ponto flutuante:
+ \small
+\begin{verbatimtab}
+>>> 1/7
+0.14285714285714285           # a float
+\end{verbatimtab}
+\normalsize
+
+	\noindent
+	O número de ponto flutuante $0.14285714285714285$ é uma aproximação do número exato $\frac{1}{7} \in \mathbb{Q}$. 	\index{fraction}
+	A aproximação tem 16 casas decimais, enquanto a expansão decimal de $\frac{1}{7}$ é infinita.
+	Para obter uma representação \emph{exata} de $\frac{1}{7}$,
+	você precisa criar uma expressão em \texttt{SymPy}.
+	Você pode utilizar \texttt{sympify} em qualquer expressão usando a função atalho \texttt{S()}:
+
+\small
+\begin{verbatimtab}
+>>> S('1/7')                  # = sympify('1/7')
+1/7                           # = Rational(1,7)
+\end{verbatimtab}
+\normalsize
+
+\noindent
+Note que a entrada para \texttt{S()} é especificada como uma string delimitada por aspas.
+Poderíamos ter obtido o mesmo resultado usando \texttt{S('1')/7} já que um objeto \texttt{SymPy} dividido por um \texttt{int} é um objeto \texttt{SymPy}. 
+
+	Com exceção da divisão no Python, outras operações como adição \texttt{+}, subtração \texttt{-}, e multiplicação \texttt{*} funcionam como você esperaria.
+	A sintaxe \texttt{**} é usada para denotar exponenciação:				\index{exponent}
+\small
+\begin{verbatimtab}
+>>> 2**10                    # mesmo que S('2^10')
+1024
+\end{verbatimtab}
+\normalsize
+
+\noindent
+Quando resolvendo problemas de matemática, 
+é melhor trabalhar com objetos \texttt{SymPy} e esperar para computar a resposta numérica no final.
+Para obter uma aproximação numérica de um objeto \texttt{SymPy} como um \texttt{float}, 
+chame o objeto com o método \texttt{.evalf()}: %Sandy said: what do you mean by 'call'?
+
+\small
+\begin{verbatimtab}
+>>> pi
+pi
+>>> pi.evalf()               # = pi.n() = N(pi)
+3.14159265358979
+\end{verbatimtab}
+\normalsize
+
+\noindent
+O método \texttt{.n()} é equivalente a \texttt{.evalf()}.
+A função global do \texttt{SymPy} \texttt{N()} também pode ser usada para computar valores numéricos.
+%
+Você pode facilmente mudar o número de dígitos de precisão da aproximação.									\index{precision}
+Digite \texttt{pi.n(400)} para obter uma aproximação de $\pi$ com 400 decimais
+
+\subsection{Símbolos}
+\label{basics:symbols}
+
+\small
+\begin{verbatimtab}
+>>> from sympy import Symbol, symbols
+\end{verbatimtab}
+\normalsize
+
+% verificar se foi isso que ele quis dizer com civilized
+
+Python é uma linguagem agradável ao usuário, então não há necessidade de definir variáveis antes de atribuir valores a elas.
+Quando você escreve \texttt{a = 3}, você define a variável \texttt{a} e atribui a ela o valor \texttt{3} ao mesmo tempo.
+Agora você pode usar \texttt{a} em cálculos subsequentes.
+
+Cálculos mais interessantes em \texttt{SymPy} necessitam que definamos \texttt{symbols}, que são os objetos do \texttt{SymPy} para representar variáveis e incógnitas. Por conveniência, quando \texttt{live.sympy.org} é iniciado, roda o seguinte comando automaticamente:  
+
+\small
+\begin{verbatimtab}
+>>> from sympy import *
+>>> x, y, z, t = symbols('x y z t')
+>>> k, m, n = symbols('k m n', integer=True)
+>>> f, g, h = symbols('f g h', cls=Function)
+\end{verbatimtab}
+\normalsize
+
+\noindent
+O primeiro comando importa todas as funções do \texttt{SymPy}. Os outros três comandos definem alguns símbolos genéricos \texttt{x}, \texttt{y}, \texttt{z}, a \texttt{t}, e vários outros símbolos com propriedades especiais.
+
+Note as diferenças entre os dois comandos a seguir:
+
+\small
+\begin{verbatimtab}
+>>> x + 2           
+x + 2                 # uma expressão de soma
+>>> p + 2 
+NameError: name 'p' is not defined
+\end{verbatimtab}
+\normalsize
+
+\noindent
+A variável \texttt{x} é definida como um símbolo, então o \texttt{SymPy} sabe que \texttt{x + 2} é uma expressão, mas a variável \texttt{p} não está definida, então o \texttt{SymPy} não sabe o que fazer com \texttt{p + 2}. Para usar \texttt{p} em expressões, você deve primeiro defini-lo como um súmbolo:
+
+\small
+\begin{verbatimtab}
+>>> p = Symbol('p')   # o mesmo que p = symbols('p')
+>>> p + 2
+p + 2                 # = Add(Symbol('p'), Integer(2))
+\end{verbatimtab}
+\normalsize
+
+
+\printcp
+
+\noindent
+Você pode definir uma sequência de variáveis usando a notação a seguir:
+\small
+\begin{verbatimtab}
+>>> a0, a1, a2, a3 = symbols('a0:4')
+\end{verbatimtab}
+\normalsize
+
+\noindent
+Você pode utilizar o nome que quiser para uma variável, mas é melhor evitar as letras \texttt{Q,C,O,S,I,N} e \texttt{E} porque elas têm usos especiais em \texttt{SymPy}:
+
+\texttt{I} é a unidade imaginária $i\eqdef\sqrt{-1}$, 
+\texttt{E} é a base do logaritmo natural,
+\texttt{S()} é a função \texttt{sympify},
+\texttt{N()} é usado para obter aproximações numéricas, e
+\texttt{O} é usado para notação big-\texttt{O}.
+
+
+\subsection{Expressões}
+\label{basics:expressions}
+
+\small
+\begin{verbatimtab}
+>>> from sympy import simplify, factor, expand, collect
+\end{verbatimtab}
+\normalsize
+
+\noindent
+Você define expressões em \texttt{SymPy} combinando símbolos com operações básicas e outras funções:
+
+\small
+\begin{verbatimtab}
+>>> expr = 2*x + 3*x - sin(x) - 3*x + 42
+>>> simplify(expr)                   # simplifica a expressão
+2*x - sin(x) + 42
+\end{verbatimtab}
+\normalsize
+
+\noindent
+A função \texttt{simplify} pode ser usada em qualquer expressão para simplificá-la.
+Os exemplos abaixo ilustram outras funções úteis em \texttt{SymPy} que correspondem a operações matemáticas comuns em expressões:
+
+\index{factoring} \index{expand} \index{collect}
+
+\small
+\begin{verbatimtab}
+>>> factor( x**2-2*x-8 )             # fatora um polinômio
+(x - 4)*(x + 2)
+>>> expand( (x-4)*(x+2) )            # expande uma expressão
+x**2 - 2*x - 8
+>>> collect(x**2 + x*b + a*x + a*b, x)    # agrupa termos semelhantes
+x**2 + (a+b)*x + a*b
+\end{verbatimtab}
+\normalsize
+
+\begin{comment}
 \lesection{Fundamentals of mathematics}
 \label{sec:sympytut_fundamentals_of_mathematics}
 
@@ -191,13 +460,15 @@ In Python, there are two types of number objects: \texttt{int}s and \texttt{floa
 	if you want to get exact answers.
 	If you try to divide two numbers,
 	Python will produce a floating point number approximation:
+
+
 \small
 \begin{verbatimtab}
 >>> 1/7
 0.14285714285714285           # a float
 \end{verbatimtab}
 \normalsize
-	
+
 	\noindent
 	The floating point number $0.14285714285714285$ is an approximation of the exact number $\frac{1}{7} \in \mathbb{Q}$. 	\index{fraction}
 	The \texttt{float} approximation has 16 decimals
@@ -260,7 +531,6 @@ Enter \texttt{pi.n(400)} to obtain an approximation of $\pi$ to 400 decimals.
 >>> from sympy import Symbol, symbols
 \end{verbatimtab}
 \normalsize
-
 \noindent
 Python is a civilized language so there's no need to define variables before assigning values to them.
 When you write \texttt{a = 3}, you define a new name \texttt{a} and set it to the value \texttt{3}.
@@ -355,7 +625,6 @@ You define \texttt{SymPy} expressions by combining symbols with basic math opera
 The function \texttt{simplify} can be used on any expression to simplify it.
 The examples below illustrate other useful \texttt{SymPy} functions
 that correspond to common mathematical operations on expressions: 
-
 																								\index{factoring} \index{expand} \index{collect}
 
 \small
@@ -368,7 +637,7 @@ x**2 - 2*x - 8
 x**2 + (a+b)*x + a*b
 \end{verbatimtab}
 \normalsize
-
+\end{comment}
 \noindent
 To substitute a given value into an expression,																\index{substitution}
 call the \texttt{.subs()} method, passing in a python dictionary object \texttt{\{ key:val, ... \}} 

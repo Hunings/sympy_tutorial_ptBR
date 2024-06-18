@@ -1,4 +1,4 @@
-\documentclass[9pt]{IEEEtran}
+\documentclass[9pt, onecolumn]{IEEEtran}
 
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
@@ -8,8 +8,7 @@
 
 
 
-\usepackage{fixltx2e} % provides \textsubscript
-% use upquote if available, for straight quotes in verbatim environments
+
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[utf8]{inputenc}
@@ -33,7 +32,6 @@
   \usepackage[unicode=true]{hyperref}
 \fi
 \hypersetup{breaklinks=true,
-            bookmarks=true,
             pdfauthor={},
             pdftitle={Taming math and physics using SymPy},
             colorlinks=true,
@@ -50,15 +48,19 @@
 \usepackage{etoolbox}
 
 
-\title{{\Huge Taming math and physics using \texttt{SymPy} }}
+\title{{\Huge Domando matemática e física com \texttt{SymPy} }}
 %	A tale of with equations and code}
 %\author{Ivan Savov}
-\author{{\normalsize Tutorial based on the \href{http://minireference.com}{{\sc No bullshit guide}} series of textbooks by \href{mailto:ivan.savov+SYMPYTUT@gmail.com}{Ivan Savov}}}
+\author{{\normalsize Tutorial baseado na série de livros \href{http://minireference.com}{{\sc No bullshit guide}} de \href{mailto:ivan.savov+SYMPYTUT@gmail.com}{Ivan Savov}}}
 \date{\today}
 
 %\usepackage{listings}
 \usepackage{moreverb}
-\usepackage[letterpaper,bmargin=1.1cm,rmargin=0.95cm,lmargin=0.95cm,tmargin=1cm,headsep=0.2cm,footskip=0.5cm]{geometry}
+% Original settings for letter-size paper with thin margins
+%\usepackage[letterpaper,bmargin=1.1cm,rmargin=0.95cm,lmargin=0.95cm,tmargin=1cm,headsep=0.2cm,footskip=0.5cm]{geometry}
+% Custom settings for small paper while working
+\usepackage[papersize={5.5in,8.5in},bmargin=1.5cm,rmargin=1cm,lmargin=1cm,tmargin=1cm,headsep=0.2cm,footskip=0.5cm]{geometry}
+
 
 
 \usepackage{bbm}
@@ -89,26 +91,39 @@
 
 \newcommand*{\eqdef}{\stackrel{\raisebox{-2pt}{\scalebox{0.48}{def}}}{=}}   % "defined to be equal" symbol (prev. used \equiv; other common is := )
 
-\begin{document}
+% customizations for Potuguese version
+% via https://www.overleaf.com/learn/latex/Portuguese
+\usepackage[T1]{fontenc}
+\usepackage[portuguese]{babel}
 
+
+
+
+\begin{document}
 
 \makeatletter
 \preto{\@verbatim}{\topsep=0pt \partopsep=0pt \vspace{-1.2mm}}
 \makeatother
-
-
-
-        \maketitle
+        
+\maketitle
 
 %\vspace{-2mm}
 
 \begin{abstract}
+
+A maior parte das pessoas considera a matemática e a física bestas assustadoras das quais é melhor manter distância. Computadores, no entanto, podem nos ajudar a domar a complexidade e as manipulações aritméticas entediantes associadas a esses temas. De fato, matemática e física são muito melhor abordadas uma vez que você tem o poder dos computadores ao seu lado.
+
+\begin{comment}
 Most people consider math and physics to be scary beasts from which it is best to keep one's distance.
 Computers, however, can help us tame the complexity and tedious arithmetic manipulations associated with these subjects.
 Indeed, math and physics are much more approachable once you have the power of computers on your side.
-%
+\end{comment}
+
 %Understand math and physics
 
+Este tutorial serve a um duplo propósito. Por um lado, serve como uma revisão dos conceitos fundamentais de matemática para pessoas familiarizadas com computadores. Por outro lado, este tutorial serve para demonstrar aos estudantes como um sistema de álgebra computacional (CAS) pode ajudá-los com suas tarefas. Uma advertência é necessária. Por favor, não use \texttt{SymPy} para evitar o sofrimento envolvido com sua tarefa! Professores atribuem tarefas a você porque querem que você aprenda. Faça sua tarefa por si, mas se quiser, pode checar as respostas usando o \texttt{SymPy}. Ainda melhor, use \texttt{SymPy} para criar exercícios você mesmo.
+
+\begin{comment}
 This tutorial serves a dual purpose.
 On one hand, it serves as a review of the fundamental concepts of mathematics for computer-literate people.
 %who may have forgotten their math or never quite learned it detail.
@@ -122,6 +137,8 @@ because they want you to learn.
 Do your homework by hand,
 but if you want, you can check your answers using \texttt{SymPy}.
 Better yet, use \texttt{SymPy} to invent extra practice problems for yourself.
+\end{comment}
+
 %
 %Let's get started!
 

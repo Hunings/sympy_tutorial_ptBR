@@ -334,29 +334,26 @@ The matrix inverse $A^{-1}$ plays the role of division by $A$.
 		Certain matrices can be written entirely in terms of their eigenvectors and their eigenvalues.
 		Consider the matrix $\Lambda$ (capital Greek \emph{L}) that has the eigenvalues of the matrix $A$ on the diagonal, 
 		and the matrix $Q$ constructed from the eigenvectors of~$A$ as columns:
-		    \[
-		     \Lambda = 
-		    \scriptscriptstyle
-		     \begin{bmatrix}
-		     \lambda_1	&  \cdots  &  0 \\
-		     \vdots 	&  \ddots  &  0  \\
-		     0  	&   0      &  \lambda_n
-		     \end{bmatrix}\!,
-		     \ \ 
-		     {\textstyle Q} \: 
-		     = 
-		     \begin{bmatrix}
-		     \big|  &  &\Huge| \\[1.2mm]
-		     \vec{e}_{\lambda_1}  & \!  \cdots \! &  \large\vec{e}_{\lambda_n} \\[1.2mm]
-		     \big|  &  & \Huge| 
-		     \end{bmatrix}\!,
-		     \ \ 
-		     {\textstyle
-		     \textrm{then}
-		     \ \ 
-		     A =  Q\Lambda Q^{-1}.
-		     }
-		    \]
+  
+            \[
+            \Lambda = 
+            \begin{bmatrix}
+            \lambda_1 & \cdots & 0 \\
+            \vdots & \ddots & \vdots \\
+            0 & \cdots & \lambda_n
+            \end{bmatrix}\!,
+            \quad
+            Q = 
+            \begin{bmatrix}
+            \big| & & \big| \\
+            \vec{e}_{\lambda_1} & \cdots & \vec{e}_{\lambda_n} \\
+            \big| & & \big| 
+            \end{bmatrix}\!,
+            \quad
+            \text{then} \quad 
+            A = Q \Lambda Q^{-1}.
+            \]
+            
 
 		Matrices that can be written this way are called \emph{diagonalizable}.		
 		%The matrix $A$ can be written as the product of three matrices
